@@ -1,4 +1,4 @@
-name: Build Android Bundle (AAB)
+name: Build Android APKs & AAB (Debug, Release & Bundle)
 
 on:
   push:
@@ -22,14 +22,11 @@ jobs:
     - name: Download Gradle
       uses: gradle/gradle-build-action@v2
 
-    - name: Build AAB
+    - name: Build Debug, Release APKs & AAB
       run: |
-        cd app
-        ../gradlew bundleRelease
+        chmod +x gradlew
+        ./gradlew assembleDebug assembleRelease bundleRelease
 
-    - name: Upload Release AAB
-      uses: actions/upload-artifact@v4
-      with:
-        name: AAB-Release
-        path: app/build/outputs/bundle/release/app-release.aab
-        
+    - name: Upload Debug APK
+      uses: a
+      
