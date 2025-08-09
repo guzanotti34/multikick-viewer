@@ -1,4 +1,4 @@
-name: Build Android APK
+name: Build Android APKs & AAB (Debug, Release & Bundle)
 
 on:
   push:
@@ -11,10 +11,10 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up JDK 11
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
         java-version: '11'
@@ -22,13 +22,25 @@ jobs:
     - name: Download Gradle
       uses: gradle/gradle-build-action@v2
 
-    - name: Build APK
+    - name: Build Debug, Release APKs & AAB
       run: |
         cd app
-        ../gradlew assembleDebug
+        ../gradlew assembleDebug assembleRelease bundleRelease
 
-    - name: Upload APK
-      uses: actions/upload-artifact@v3
+    - name: Upload Debug APK
+      uses: actions/upload-artifact@v4
       with:
-        name: MultiKickViewer-APK
+        name: MultiKickViewer-APK-Debug
         path: app/build/outputs/apk/debug/app-debug.apk
+
+    - name: Upload Release APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: MultiKickViewer-APK-Release
+        path: app/build/outputs/apk/release/app-release.apk
+
+    - name: Upload Release AAB
+      uses: actions/upload-artifact@v4
+      with:
+        name: MultiKickViewer-AAB-Release
+        path: app/build/outputs/bundle/release/app-release.aab
