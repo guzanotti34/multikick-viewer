@@ -22,25 +22,4 @@ jobs:
     - name: Download Gradle
       uses: gradle/gradle-build-action@v2
 
-    - name: Build Debug, Release APKs & AAB
-      run: |
-        cd app
-        ../gradlew assembleDebug assembleRelease bundleRelease
-
-    - name: Upload Debug APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: MultiKickViewer-APK-Debug
-        path: app/build/outputs/apk/debug/app-debug.apk
-
-    - name: Upload Release APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: MultiKickViewer-APK-Release
-        path: app/build/outputs/apk/release/app-release.apk
-
-    - name: Upload Release AAB
-      uses: actions/upload-artifact@v4
-      with:
-        name: MultiKickViewer-AAB-Release
-        path: app/build/outputs/bundle/release/app-release.aab
+    - name: Build Debug, Release APKs
