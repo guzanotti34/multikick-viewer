@@ -19,17 +19,14 @@ jobs:
         distribution: 'temurin'
         java-version: '11'
 
-    - name: Download Gradle
-      uses: gradle/gradle-build-action@v2
+    - name: Give permission to gradlew
+      run: chmod +x gradlew
 
     - name: Build Debug APK
-      run: |
-        chmod +x gradlew
-        ./gradlew assembleDebug
+      run: ./gradlew assembleDebug
 
     - name: Upload Debug APK
       uses: actions/upload-artifact@v3
       with:
         name: app-debug.apk
         path: app/build/outputs/apk/debug/app-debug.apk
-        
